@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/tweets")
@@ -30,9 +31,9 @@ public class TweetController {
 		
 		List<TweetResponseDTO> tweetResponseDTOs = tweets.stream()
 				.map(tweet -> new TweetResponseDTO(
-					tweet.getTweetId(),
+					tweet.getId(),
 					tweet.getContent(),
-					tweet.getTimestamp()
+					tweet.getCreatedAt()
 				))
 				.collect(Collectors.toList());
 		
@@ -43,7 +44,7 @@ public class TweetController {
 	public ResponseEntity<Void> storeTweet(@RequestBody TweetRequestDTO tweetRequestDTO) {
 		Tweet tweet = new Tweet();
 		tweet.setContent(tweetRequestDTO.getContent());
-		tweet.setTimestamp(tweetRequestDTO.getTimestamp());
+		tweet.setCreatedAt(LocalDateTime.now());
 		tweetUseCase.storeTweet(tweet);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

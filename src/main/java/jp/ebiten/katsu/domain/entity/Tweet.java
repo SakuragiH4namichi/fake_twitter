@@ -8,7 +8,7 @@ import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 public class Tweet {
@@ -16,8 +16,9 @@ public class Tweet {
 	@Id
 	@Getter
 	@Setter
+	@Column(name = "tweet_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long tweetId;
+	private Long id;
 	
 	@Getter
 	@Setter
@@ -26,22 +27,6 @@ public class Tweet {
 	
 	@Getter
 	@Setter
-	@Column(name = "timestamp")
-	private Timestamp timestamp;
-	
-	
-	//コンストラクタ
-	public Tweet() {
-	}
-	
-	//ファクトリーメソッド
-	public static Tweet createTweetInstanceThreeArgs(Long tweetId, String content, Timestamp timestamp) {
-		Tweet tweet = createTweetInstanceThreeArgs(tweetId, content, timestamp);
-		return tweet;
-	}
-	
-	//ファクトリーメソッド
-	public static Tweet createTweetInstanceOneArgs(Tweet tweet) {
-		return tweet;
-	}
+	@Column(name = "createdAt")
+	private LocalDateTime createdAt;
 }

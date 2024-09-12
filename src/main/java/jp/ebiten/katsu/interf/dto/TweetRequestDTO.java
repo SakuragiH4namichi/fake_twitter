@@ -2,14 +2,20 @@ package jp.ebiten.katsu.interf.dto;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 public class TweetRequestDTO {
 
-	private Long tweetId;
+	private Long id;
 
 	private String content;
 
-	private Timestamp timestamp;	
+	private LocalDateTime createdAt;
+	
+	public TweetRequestDTO(Long id, String content, LocalDateTime createdAt) {
+		this.id = id;
+		this.content = content;
+		this.createdAt = createdAt;
+	}
 }
