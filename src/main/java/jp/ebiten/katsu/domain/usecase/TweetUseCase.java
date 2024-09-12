@@ -1,8 +1,8 @@
 package jp.ebiten.katsu.domain.usecase;
 
-import java.util.List;
-
 import jp.ebiten.katsu.domain.entity.Tweet;
+
+import java.util.List;
 
 public interface TweetUseCase {
 	

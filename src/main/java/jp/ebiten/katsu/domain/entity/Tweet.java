@@ -5,11 +5,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
-
-import java.sql.Timestamp;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Timestamp;
 
 @Entity
 public class Tweet {
