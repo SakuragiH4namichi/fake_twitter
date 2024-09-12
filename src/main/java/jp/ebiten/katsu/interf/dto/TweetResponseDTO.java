@@ -1,23 +1,22 @@
 package jp.ebiten.katsu.interf.dto;
 
+import lombok.Data;
+
 import java.sql.Timestamp;
 
-import jp.ebiten.katsu.domain.entity.Tweet;
-import lombok.Getter;
-
+@Data
 public class TweetResponseDTO {
-	@Getter
-	private Long tweetId;
 	
-	@Getter
+	private Long tweetId;
+
 	private String content;
 	
-	@Getter
 	private Timestamp timestamp;
 	
-	public TweetResponseDTO(Tweet tweet) {
-		this.tweetId = tweet.getTweetId();
-		this.content = tweet.getContent();
-		this.timestamp = tweet.getTimestamp();
+	public TweetResponseDTO(Long tweetId, String content, Timestamp timestamp) {
+		this.tweetId = tweetId;
+		this.content = content;
+		this.timestamp = timestamp;
 	}
+	
 }

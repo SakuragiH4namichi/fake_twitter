@@ -5,12 +5,12 @@ import jp.ebiten.katsu.domain.usecase.TweetUseCase;
 import jp.ebiten.katsu.interf.dto.TweetRequestDTO;
 import jp.ebiten.katsu.interf.dto.TweetResponseDTO;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/tweets")
@@ -29,7 +29,11 @@ public class TweetController {
 		System.out.println("Tweets found: " + tweets.size());
 		
 		List<TweetResponseDTO> tweetResponseDTOs = tweets.stream()
-				.map(TweetResponseDTO::new)
+				.map(tweet -> new TweetResponseDTO(
+					tweet.getTweetId(),
+					tweet.getContent(),
+					tweet.getTimestamp()
+				))
 				.collect(Collectors.toList());
 		
 		return new ResponseEntity<>(tweetResponseDTOs, HttpStatus.OK);
