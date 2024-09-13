@@ -1,6 +1,5 @@
 package jp.ebiten.katsu.interf.controller;
 
-import jp.ebiten.katsu.domain.entity.Tweet;
 import jp.ebiten.katsu.domain.usecase.TweetUseCase;
 import jp.ebiten.katsu.interf.dto.TweetRequestDTO;
 import jp.ebiten.katsu.interf.dto.TweetResponseDTO;
@@ -25,11 +24,7 @@ public class TweetController {
 	
 	@GetMapping
 	public ResponseEntity<List<TweetResponseDTO>> getTweetList() {
-		List<Tweet> tweets = tweetUseCase.getTweetList();
-		
-		System.out.println("Tweets found: " + tweets.size());
-		
-		List<TweetResponseDTO> tweetResponseDTOs = tweets.stream()
+		List<TweetResponseDTO> tweetResponseDTOs = tweetUseCase.getTweetList().stream()
 				.map(tweet -> new TweetResponseDTO(
 					tweet.getId(),
 					tweet.getContent(),
@@ -42,10 +37,7 @@ public class TweetController {
 	
 	@PostMapping
 	public ResponseEntity<Void> storeTweet(@RequestBody TweetRequestDTO tweetRequestDTO) {
-		Tweet tweet = new Tweet();
-		tweet.setContent(tweetRequestDTO.getContent());
-		tweet.setCreatedAt(LocalDateTime.now());
-		tweetUseCase.storeTweet(tweet);
+		tweetUseCase.storeTweet(tweetRequestDTO.getContent(), LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }
