@@ -1,5 +1,6 @@
 package jp.ebiten.katsu.interf.controller;
 
+import jp.ebiten.katsu.domain.entity.Tweet;
 import jp.ebiten.katsu.domain.usecase.TweetUseCase;
 import jp.ebiten.katsu.interf.dto.TweetRequestDTO;
 import jp.ebiten.katsu.interf.dto.TweetResponseDTO;
@@ -15,13 +16,13 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/tweets")
 public class TweetController {
-	
+
 	private final TweetUseCase tweetUseCase;
-	
+
 	public TweetController(TweetUseCase tweetUseCase) {
 		this.tweetUseCase = tweetUseCase;
 	}
-	
+
 	@GetMapping
 	public ResponseEntity<List<TweetResponseDTO>> getTweetList() {
 		List<TweetResponseDTO> tweetResponseDTOs = tweetUseCase.getTweetList().stream()
@@ -34,10 +35,25 @@ public class TweetController {
 		
 		return new ResponseEntity<>(tweetResponseDTOs, HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Void> storeTweet(@RequestBody TweetRequestDTO tweetRequestDTO) {
 		tweetUseCase.storeTweet(tweetRequestDTO.getContent(), LocalDateTime.now());
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	@PutMapping
+	public ResponseEntity<Void> updateTweet(@RequestBody TweetRequestDTO tweetRequestDTO) {
+		Tweet tweet = new Tweet(tweetRequestDTO.getId(),
+								tweetRequestDTO.getContent(),
+								tweetRequestDTO.getCreatedAt());
+		tweetUseCase.updateTweet(tweet);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	@DeleteMapping
+	public ResponseEntity<Void> deleteTweet(@RequestBody TweetRequestDTO tweetRequestDTO) {
+		tweetUseCase.deleteTweet(tweetRequestDTO.getId());
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }
