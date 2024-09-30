@@ -2,6 +2,9 @@ package jp.ebiten.katsu.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
@@ -12,9 +15,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "tweets")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class Tweet {
 	
 	@Id
@@ -26,11 +30,15 @@ public class Tweet {
 	
 	@Getter
 	@Setter
-	@Column(name = "content")
+	@Column(name = "content", nullable = false)
 	private String content;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 	
 	@Getter
 	@Setter
-	@Column(name = "createdAt")
+	@Column(name = "createdAt", nullable = false)
 	private LocalDateTime createdAt;
 }

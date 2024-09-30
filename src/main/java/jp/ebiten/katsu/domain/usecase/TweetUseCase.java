@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public interface TweetUseCase {
 	
 	List<Tweet> getTweetList();
-	void storeTweet(String content, LocalDateTime createdAt); 
+	void storeTweet(String content,Long user_id, LocalDateTime createdAt); 
 	void deleteTweet(Long id);
-	void updateTweet(Tweet tweet);
+	void updateTweet(Long id, String content, Long user_id, LocalDateTime createdAt);
 }

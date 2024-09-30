@@ -1,6 +1,5 @@
 package jp.ebiten.katsu.interf.controller;
 
-import jp.ebiten.katsu.domain.entity.Tweet;
 import jp.ebiten.katsu.domain.usecase.TweetUseCase;
 import jp.ebiten.katsu.interf.dto.TweetRequestDTO;
 import jp.ebiten.katsu.interf.dto.TweetResponseDTO;
@@ -38,16 +37,13 @@ public class TweetController {
 
 	@PostMapping
 	public ResponseEntity<Void> storeTweet(@RequestBody TweetRequestDTO tweetRequestDTO) {
-		tweetUseCase.storeTweet(tweetRequestDTO.getContent(), LocalDateTime.now());
+		tweetUseCase.storeTweet(tweetRequestDTO.getContent(), tweetRequestDTO.getUser_id(), LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
 	@PutMapping
 	public ResponseEntity<Void> updateTweet(@RequestBody TweetRequestDTO tweetRequestDTO) {
-		Tweet tweet = new Tweet(tweetRequestDTO.getId(),
-								tweetRequestDTO.getContent(),
-								tweetRequestDTO.getCreatedAt());
-		tweetUseCase.updateTweet(tweet);
+		tweetUseCase.updateTweet(tweetRequestDTO.getId(), tweetRequestDTO.getContent(), tweetRequestDTO.getUser_id(), LocalDateTime.now());
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
