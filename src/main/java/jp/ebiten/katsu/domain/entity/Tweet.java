@@ -33,6 +33,8 @@ public class Tweet {
 	@Column(name = "content", nullable = false)
 	private String content;
 	
+	@Getter
+	@Setter
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
