@@ -25,8 +25,7 @@
 
 🗺 ユーザーストーリーマップ（一部）
 
-<img width="1000" alt="キャプチャ" src="https://github.com/user-attachments/assets/d4e52a61-521e-4f41-bf6c-236ccd15ae02">
-
+<img width="1000" alt="キャプチャ" src="https://github.com/user-attachments/assets/ae68bebe-6e35-47cc-b021-dcb78be7011f">
 
 
 ## ⚙️ システム構成
